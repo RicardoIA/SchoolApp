@@ -18,5 +18,5 @@ insert into class (name, descript, idSubject) values
 
 insert into user (name, login, password, registration, phone, email, address, city, state, number, idCourse) values
 ('Ricardo Amorim', 'ricardo', '1234', '12.1123', '(99) 99999-9999', 'ricardo@school.com', 'Rua Dia Azul', 'Hortolândia', 'São Paulo', '20', 1),
-('Beatriz Amorim', 'beatriz', '1234', '12.1123', null, 'beatriz@school.com', null, null, null, null, 1);
+('Beatriz Amorim', 'beatriz', '1234', '12.1124', null, 'beatriz@school.com', null, null, null, null, 1);
 
