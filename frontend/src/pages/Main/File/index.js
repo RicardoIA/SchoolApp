@@ -1,37 +1,54 @@
 import * as React from "react";
-import { Text, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import { View } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-import { useNavigation } from "@react-navigation/native";
-
 // Components
-import ButtonSubmit from "../../../components/Buttons/Submit";
-import HeaderLogin from "../../../components/Header/Login";
+import HeaderMain from "../../../components/Header/Main";
+import ListRecent from "../../../components/Main/List/Recent";
 
 import styles from "./style";
 
+const classes = {
+  data: [
+    {
+      title: "Livro: como ser um programador",
+      course: "Logica de Programação",
+      date: "24 de novembro de 2022",
+      time: "09:45",
+    },
+    {
+      title: "Nóticia: UX/ UI melhores práticas",
+      course: "Programação para Web",
+      date: "24 de novembro de 2022",
+      time: "09:45",
+    },
+    {
+      title: "Nóticia: Chat GPT e suas funcionalidades",
+      course: "Algoritmo e Computação em Nuvem",
+      date: "24 de novembro de 2022",
+      time: "09:45",
+    },
+  ],
+};
+
 export default function File() {
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [visiblePassword, setVisiblePassword] = React.useState(true);
-  const [visibleError, setVisibleError] = React.useState("white");
-  const [animationError, setAnimationError] = React.useState(undefined);
-
-  const navigation = useNavigation();
-
 
   return (
     <View style={styles.container}>
+      <Animatable.View animation="fadeInDown" delay={200}>
+        <HeaderMain name="Ricardo Amorim" course="ADS" />
+      </Animatable.View>
+
       <Animatable.View
         animation="fadeInUp"
-        delay={600}
-        style={styles.containerForm}
+        delay={200}
+        style={{ marginTop: 20 }}
       >
-        <HeaderLogin title="Arquivos" />
-
-        
-
+        <ListRecent
+          height={580}
+          title="Arquivos"
+          sections={[classes]}
+        />
       </Animatable.View>
     </View>
   );

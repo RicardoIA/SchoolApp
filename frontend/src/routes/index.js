@@ -10,7 +10,7 @@ import ForgetPassword from "../pages/ForgetPassword";
 import MainHome from "../pages/Main/Home";
 import MainClass from "../pages/Main/Class";
 import MainActivity from "../pages/Main/Activity";
-import MainFiles from "../pages/Main/File";
+import MainFile from "../pages/Main/File";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,7 +66,7 @@ function Tabs() {
       />
       <Tab.Screen
         name="Files"
-        component={MainFiles}
+        component={MainFile}
         options={{
           tabBarLabel: "Arquivos",
           tabBarIcon: ({ color, size }) => (

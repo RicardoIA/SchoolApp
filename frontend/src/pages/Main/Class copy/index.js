@@ -2,9 +2,11 @@ import * as React from "react";
 import { View } from "react-native";
 import * as Animatable from "react-native-animatable";
 
+import { useNavigation } from "@react-navigation/native";
+
 // Components
 import HeaderMain from "../../../components/Header/Main";
-import ListRecent from "../../../components/Main/List/Recent";
+import ListActivity from "../../../components/Main/List/Recent";
 
 import styles from "./style";
 
@@ -50,6 +52,8 @@ const classes = {
 };
 
 export default function Class() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInDown" delay={200}>
@@ -61,9 +65,10 @@ export default function Class() {
         delay={200}
         style={{ marginTop: 20 }}
       >
-        <ListRecent
+        <ListActivity
           height={580}
           title="Aulas"
+          buttonText="Ver Mais"
           sections={[classes]}
         />
       </Animatable.View>

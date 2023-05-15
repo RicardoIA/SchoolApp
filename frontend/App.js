@@ -31,7 +31,7 @@ const light = {
     onTertiary: "rgb(255, 255, 255)",
     tertiaryContainer: "rgb(255, 217, 221)",
     onTertiaryContainer: "rgb(50, 16, 23)",
-    error: "rgb(186, 26, 26)",
+    error: colors.error,
     onError: "rgb(255, 255, 255)",
     errorContainer: "rgb(255, 218, 214)",
     onErrorContainer: "rgb(65, 0, 2)",
