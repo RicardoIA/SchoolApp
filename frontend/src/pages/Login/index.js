@@ -25,7 +25,7 @@ export default function Login() {
   }
 
   function checkLogin() {
-    if (user == "123" && password == "123") {
+    if (user == "ricardo" && password == "123") {
       navigation.navigate("Main");
     }
     setShowError("red");
@@ -65,6 +65,7 @@ export default function Login() {
             onChangeText={(user) => setUser(user)}
             defaultValue={user}
             mode="outlined"
+            autoCapitalize="none"
           />
           <TextInput
             style={styles.textInput}
@@ -76,6 +77,7 @@ export default function Login() {
             defaultValue={password}
             onChangeText={(password) => setPassword(password)}
             autoCorrect={false}
+            autoCapitalize="none"
             right={
               <TextInput.Icon
                 icon={showPassword ? "eye" : "eye-off"}
