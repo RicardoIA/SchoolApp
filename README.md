@@ -28,20 +28,21 @@ Para executar a aplicação, é necessário ter instalado as seguintes ferrament
 
 ## Passo a Passo
 ### Banco de Dados
-Na tela inicial, utilize as teclas de atalho ``win + R``. Digite ``services.msc`` e pressione enter.
-Navegue até ``MySQL Server`` e altere a opção ``status`` para ``start``.
-Backend
-Em um terminal, acesse a pasta ``backend`` e execute o comando ``npm install``.
-Após as atualizações, execute o comando ``npm start``.
+1. Na tela inicial, utilize as teclas de atalho ``win + R``. Digite ``services.msc`` e pressione enter.
+2. Navegue até ``MySQL Server`` e altere a opção ``status`` para ``start``.
+
+### Backend
+1. Em um terminal (CMD), acesse a pasta ``backend`` e execute o comando ``npm install``.
+2. Após as atualizações, execute o comando ``npm start``.
 
 ### Frontend
-Em um terminal, acesse a pasta ``frontend`` e execute o comando ``npm install``.
-Após o término da instalação das dependências, execute o comando ``npx expo start --tunnel``.
+1. Em um terminal, acesse a pasta ``frontend`` e execute o comando ``npm install``.
+2. Após o término da instalação das dependências, execute o comando ``npx expo start --tunnel``.
 2.1 - Nessa etapa, pode ser solicitada a instalação do ``ngrok``, uma aplicação de tunelamento que permite o acesso do app pelo aplicativo Expo Go. Conceda as permissões para instalação e repita o item 2.
 
 ### Acessar Aplicativo
-1. Instale o aplicativo ``Expo Go`` no dispositivo.
-2. Após as configurações iniciais, selecione o item ``Scan QR Code`` e escaneie o QR Code gerado na etapa do Frontend.
+1. Instale o aplicativo ``Expo Go`` em um  dispositivo Android ou IOS.
+2. Após as configurações iniciais, selecione o item ``Scan QR Code`` e escaneie o QR Code gerado na etapa de Frontend.
 3. Após esse passo, já é possível utilizar o aplicativo.
 
 ### Teste do Aplicativo
