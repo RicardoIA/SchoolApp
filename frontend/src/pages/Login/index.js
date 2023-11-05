@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useState, useContext } from "react";
 import { Text, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { TextInput } from "react-native-paper";
 import * as Animatable from "react-native-animatable";
 
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../contexts/auth";
 
 // Components
 import ButtonSubmit from "../../components/Buttons/Submit";
@@ -12,22 +13,22 @@ import HeaderLogin from "../../components/Header/Login";
 import styles from "./style";
 
 export default function Login() {
-  const [user, setUser] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [showPassword, setShowPassword] = React.useState(true);
-  const [showError, setShowError] = React.useState("white");
-  const [animationError, setAnimationError] = React.useState(undefined);
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
+  const [showError, setShowError] = useState("white");
+  const [animationError, setAnimationError] = useState(undefined);
 
   const navigation = useNavigation();
+  const { signIn } = useContext(AuthContext);
 
   function changeShowPassword() {
     setShowPassword(!showPassword);
   }
 
-  function checkLogin() {
-    if (user == "ricardo" && password == "123") {
-      navigation.navigate("Main");
-    }
+  function handleLogin() {
+    signIn(user, password);
+
     setShowError("red");
     setAnimationError("bounceIn");
   }
@@ -92,7 +93,7 @@ export default function Login() {
             Esqueci minha senha!
           </Text>
           <View style={{ marginTop: 40, width: "100%" }}>
-            <ButtonSubmit label="Entrar" onPress={() => checkLogin()} />
+            <ButtonSubmit label="Entrar" onPress={() => handleLogin()} />
           </View>
         </Animatable.View>
       </View>

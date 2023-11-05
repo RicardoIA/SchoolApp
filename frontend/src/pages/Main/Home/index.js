@@ -1,8 +1,8 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { View } from "react-native";
 import * as Animatable from "react-native-animatable";
 
-import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../../contexts/auth";
 
 // Components
 import HeaderMain from "../../../components/Header/Main";
@@ -70,12 +70,12 @@ const activities = {
 };
 
 export default function Home() {
-  const navigation = useNavigation();
+  const { name } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInDown" delay={200}>
-        <HeaderMain name="Ricardo Amorim" course="ADS" />
+        <HeaderMain name={name} course="ADS" />
       </Animatable.View>
 
       <Animatable.View animation="fadeInUp" delay={200}>

@@ -5,13 +5,19 @@ import { Provider as PaperProvider } from "react-native-paper";
 import colors from "./src/themes/colors.js";
 
 import Routes from "./src/routes";
+import AuthProvider from "./src/contexts/auth";
 
 export default function App() {
   return (
     <NavigationContainer>
       <PaperProvider theme={light}>
-        <StatusBar backgroundColor={colors.backgroud} barStyle="light-content" />
-        <Routes />
+        <StatusBar
+          backgroundColor={colors.backgroud}
+          barStyle="light-content"
+        />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </PaperProvider>
     </NavigationContainer>
   );
