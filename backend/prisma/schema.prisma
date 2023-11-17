@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  email           String            @unique @db.VarChar(250)
+  password        String            @db.VarChar(1000)
+  name            String            @db.VarChar(100)
+  role            Role
+  phone           String?           @db.VarChar(20)
+  cep             String?           @db.VarChar(10)
+  state           String?           @db.VarChar(100)
+  city            String?           @db.VarChar(100)
+  street          String?           @db.VarChar(100)
+  number          String?           @db.VarChar(10)
+  createAt        DateTime          @default(now())
+  Subject         Subject[]
+  Class           Class[]
+  CourseStudent   CourseStudent[]
+  Document        Document[]
+  StudentDocument StudentDocument[]
+  Task            Task[]
+  StudentTask     StudentTask[]
+}
+
+model CourseStudent {
+  course    Course @relation(fields: [courseId], references: [id])
+  courseId  Int
+  student   User   @relation(fields: [studentId], references: [id])
+  studentId Int
+
+  @@id([courseId, studentId])
+}
+
+model Course {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(100)
+  description   String          @db.VarChar(100)
+  Subject       Subject[]
+  Class         Class[]
+  CourseStudent CourseStudent[]
+}
+
+model Subject {
+  id          Int        @id @default(autoincrement())
+  name        String     @db.VarChar(100)
+  description String     @db.VarChar(100)
+  isActive    Boolean    @default(true)
+  teacher     User       @relation(fields: [teacherId], references: [id])
+  teacherId   Int
+  course      Course     @relation(fields: [courseId], references: [id])
+  courseId    Int
+  Class       Class[]
+  Document    Document[]
+  Task        Task[]
+}
+
+model Class {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  description String   @db.VarChar(100)
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+  subjectId   Int
+  document    Document @relation(fields: [documentId], references: [id])
+  documentId  Int
+  task        Task     @relation(fields: [taskId], references: [id])
+  taskId      Int
+  onDate      DateTime
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      Int?
+  Course      Course?  @relation(fields: [courseId], references: [id])
+  courseId    Int?
+}
+
+model Document {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(100)
+  description     String            @db.VarChar(100)
+  content         String            @db.VarChar(1000)
+  subject         Subject           @relation(fields: [subjectId], references: [id])
+  subjectId       Int
+  author          User              @relation(fields: [authorId], references: [id])
+  authorId        Int
+  StudentDocument StudentDocument[]
+  Class           Class[]
+}
+
+model StudentDocument {
+  id         Int      @id @default(autoincrement())
+  student    User     @relation(fields: [studentId], references: [id])
+  studentId  Int
+  document   Document @relation(fields: [documentId], references: [id])
+  documentId Int
+  isRead     Boolean  @default(false)
+  isMarked   Boolean  @default(false)
+  readDate   DateTime
+  markedDate DateTime
+}
+
+model Task {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(100)
+  description String        @db.VarChar(100)
+  content     String        @db.VarChar(1000)
+  subject     Subject       @relation(fields: [subjectId], references: [id])
+  subjectId   Int
+  author      User          @relation(fields: [authorId], references: [id])
+  authorId    Int
+  Class       Class[]
+  StudentTask StudentTask[]
+}
+
+model StudentTask {
+  id         Int      @id @default(autoincrement())
+  student    User     @relation(fields: [studentId], references: [id])
+  studentId  Int
+  task       Task     @relation(fields: [taskId], references: [id])
+  taskId     Int
+  isRead     Boolean  @default(false)
+  isMarked   Boolean  @default(false)
+  readDate   DateTime
+  markedDate DateTime
+}
