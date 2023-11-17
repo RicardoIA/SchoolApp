@@ -21,6 +21,11 @@ export class UserController {
     return await this.userService.getAll();
   }
 
+  @Get(':id')
+  async findById(@Param('id') id: number) {
+    return await this.userService.findById(+id);
+  }
+
   @IsPublic()
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
