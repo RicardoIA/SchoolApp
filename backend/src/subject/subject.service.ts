@@ -1,10 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CourseService } from 'src/course/course.service';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { UserService } from 'src/user/user.service';
 import { CreateSubjectDto } from './dto/create-subject.dto';
 import { UpdateSubjectDto } from './dto/update-subject.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { Role } from '@prisma/client';
-import { UserService } from 'src/user/user.service';
-import { CourseService } from 'src/course/course.service';
 
 @Injectable()
 export class SubjectService {
@@ -57,5 +56,13 @@ export class SubjectService {
     return await this.prisma.subject.delete({
       where: { id },
     });
+  }
+
+  async isExist(id: number) {
+    const subject = await this.findOne(id);
+
+    if (!subject) {
+      throw new NotFoundException('The subject does not exist.');
+    }
   }
 }
