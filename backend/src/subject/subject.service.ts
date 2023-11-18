@@ -15,26 +15,15 @@ export class SubjectService {
   ) {}
 
   async create(createSubjectDto: CreateSubjectDto) {
-    const data = {
-      ...createSubjectDto,
-    };
-    const userTeacher = await this.user.findById(createSubjectDto.teacherId);
-
-    if (!userTeacher) {
-      throw new NotFoundException('The user does not exist.');
+    if (createSubjectDto.teacherId) {
+      await this.user.isTeacher(createSubjectDto.teacherId);
     }
 
-    if (userTeacher.role != Role.TEACHER) {
-      throw new NotFoundException('The user is not a teacher.');
+    if (createSubjectDto.courseId) {
+      await this.course.isExists(createSubjectDto.courseId);
     }
 
-    const course = await this.course.findOne(createSubjectDto.courseId);
-
-    if (!course) {
-      throw new NotFoundException('The course does not exist.');
-    }
-
-    return await this.prisma.subject.create({ data });
+    return await this.prisma.subject.create({ data: createSubjectDto });
   }
 
   async findAll() {
