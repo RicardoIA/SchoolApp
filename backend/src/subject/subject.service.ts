@@ -49,15 +49,7 @@ export class SubjectService {
 
   async update(id: number, updateSubjectDto: UpdateSubjectDto) {
     if (updateSubjectDto.teacherId) {
-      const userTeacher = await this.user.findById(updateSubjectDto.teacherId);
-
-      if (!userTeacher) {
-        throw new NotFoundException('The user does not exist.');
-      }
-
-      if (userTeacher.role != Role.TEACHER) {
-        throw new NotFoundException('The user is not a teacher.');
-      }
+      await this.user.isTeacher(updateSubjectDto.teacherId);
     }
 
     if (updateSubjectDto.courseId) {

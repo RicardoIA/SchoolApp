@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Role } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -29,28 +30,70 @@ export class UserService {
   }
 
   async findById(id: number) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id },
     });
+
+    user.password = undefined;
+    return user;
   }
   async findByEmail(email: string) {
-    return await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
     });
+
+    user.password = undefined;
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.prisma.user.update({
+    const user = await this.prisma.user.update({
       where: { id },
       data: {
         ...updateUserDto,
       },
     });
+
+    user.password = undefined;
+    return user;
   }
 
   async remove(id: number) {
     return await this.prisma.user.delete({
       where: { id },
     });
+  }
+
+  async isAdmin(id: number) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('The user does not exist.');
+    }
+    if (user.role != Role.ADMIN) {
+      throw new NotFoundException('The user is not a admin.');
+    }
+  }
+
+  async isTeacher(id: number) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('The user does not exist.');
+    }
+    if (user.role != Role.TEACHER) {
+      throw new NotFoundException('The user is not a teacher.');
+    }
+  }
+
+  async isStudent(id: number) {
+    const user = await this.findById(id);
+
+    if (!user) {
+      throw new NotFoundException('The user does not exist.');
+    }
+    if (user.role != Role.STUDENT) {
+      throw new NotFoundException('The user is not a student.');
+    }
   }
 }
