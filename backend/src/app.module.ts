@@ -9,9 +9,10 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { SubjectModule } from './subject/subject.module';
 import { DocumentModule } from './document/document.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule, UserModule, CourseModule, SubjectModule, DocumentModule],
+  imports: [PrismaModule, AuthModule, UserModule, CourseModule, SubjectModule, DocumentModule, TaskModule],
   controllers: [AppController],
   providers: [
     AppService,
