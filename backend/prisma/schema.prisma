@@ -70,17 +70,17 @@ model Subject {
 }
 
 model Class {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(100)
-  description String   @db.VarChar(100)
-  teacher     User     @relation(fields: [teacherId], references: [id])
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(100)
+  description String    @db.VarChar(100)
+  teacher     User      @relation(fields: [teacherId], references: [id])
   teacherId   Int
-  subject     Subject  @relation(fields: [subjectId], references: [id])
+  subject     Subject   @relation(fields: [subjectId], references: [id])
   subjectId   Int
-  document    Document @relation(fields: [documentId], references: [id])
-  documentId  Int
-  task        Task     @relation(fields: [taskId], references: [id])
-  taskId      Int
+  document    Document? @relation(fields: [documentId], references: [id])
+  documentId  Int?
+  task        Task?     @relation(fields: [taskId], references: [id])
+  taskId      Int?
   onDate      DateTime
 }
 
