@@ -34,6 +34,10 @@ export class UserService {
       where: { id },
     });
 
+    if (!user) {
+      throw new NotFoundException('The user does not exist.');
+    }
+
     user.password = undefined;
     return user;
   }
@@ -67,9 +71,6 @@ export class UserService {
   async isAdmin(id: number) {
     const user = await this.findById(id);
 
-    if (!user) {
-      throw new NotFoundException('The user does not exist.');
-    }
     if (user.role != Role.ADMIN) {
       throw new NotFoundException('The user is not a admin.');
     }
@@ -78,9 +79,6 @@ export class UserService {
   async isTeacher(id: number) {
     const user = await this.findById(id);
 
-    if (!user) {
-      throw new NotFoundException('The user does not exist.');
-    }
     if (user.role != Role.TEACHER) {
       throw new NotFoundException('The user is not a teacher.');
     }
@@ -89,9 +87,6 @@ export class UserService {
   async isStudent(id: number) {
     const user = await this.findById(id);
 
-    if (!user) {
-      throw new NotFoundException('The user does not exist.');
-    }
     if (user.role != Role.STUDENT) {
       throw new NotFoundException('The user is not a student.');
     }
