@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -38,5 +38,13 @@ export class CourseService {
     return await this.prisma.course.delete({
       where: { id },
     });
+  }
+
+  async isExists(id: number) {
+    const course = await this.findOne(id);
+
+    if (!course) {
+      throw new NotFoundException('The course does not exist.');
+    }
   }
 }

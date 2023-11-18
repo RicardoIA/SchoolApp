@@ -53,11 +53,7 @@ export class SubjectService {
     }
 
     if (updateSubjectDto.courseId) {
-      const course = await this.course.findOne(updateSubjectDto.courseId);
-
-      if (!course) {
-        throw new NotFoundException('The course does not exist.');
-      }
+      await this.course.isExists(updateSubjectDto.courseId);
     }
 
     return await this.prisma.subject.update({
