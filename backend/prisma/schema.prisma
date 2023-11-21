@@ -17,25 +17,23 @@ enum Role {
 }
 
 model User {
-  id              Int               @id @default(autoincrement())
-  email           String            @unique @db.VarChar(250)
-  password        String            @db.VarChar(1000)
-  name            String            @db.VarChar(100)
-  role            Role
-  phone           String?           @db.VarChar(20)
-  cep             String?           @db.VarChar(10)
-  state           String?           @db.VarChar(100)
-  city            String?           @db.VarChar(100)
-  street          String?           @db.VarChar(100)
-  number          String?           @db.VarChar(10)
-  createAt        DateTime          @default(now())
-  Subject         Subject[]
-  Class           Class[]
-  CourseStudent   CourseStudent[]
-  Document        Document[]
-  StudentDocument StudentDocument[]
-  Task            Task[]
-  StudentTask     StudentTask[]
+  id            Int             @id @default(autoincrement())
+  email         String          @unique @db.VarChar(250)
+  password      String          @db.VarChar(1000)
+  name          String          @db.VarChar(100)
+  role          Role
+  phone         String?         @db.VarChar(20)
+  cep           String?         @db.VarChar(10)
+  state         String?         @db.VarChar(100)
+  city          String?         @db.VarChar(100)
+  street        String?         @db.VarChar(100)
+  number        String?         @db.VarChar(10)
+  createAt      DateTime        @default(now())
+  Subject       Subject[]
+  Class         Class[]
+  CourseStudent CourseStudent[]
+  Document      Document[]
+  Task          Task[]
 }
 
 model CourseStudent {
@@ -85,51 +83,25 @@ model Class {
 }
 
 model Document {
-  id              Int               @id @default(autoincrement())
-  name            String            @db.VarChar(100)
-  description     String            @db.VarChar(100)
-  content         String            @db.VarChar(1000)
-  subject         Subject           @relation(fields: [subjectId], references: [id])
-  subjectId       Int
-  author          User              @relation(fields: [authorId], references: [id])
-  authorId        Int
-  StudentDocument StudentDocument[]
-  Class           Class[]
-}
-
-model StudentDocument {
-  id         Int      @id @default(autoincrement())
-  student    User     @relation(fields: [studentId], references: [id])
-  studentId  Int
-  document   Document @relation(fields: [documentId], references: [id])
-  documentId Int
-  isRead     Boolean  @default(false)
-  isMarked   Boolean  @default(false)
-  readDate   DateTime
-  markedDate DateTime
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(100)
+  description String  @db.VarChar(100)
+  content     String  @db.VarChar(1000)
+  subject     Subject @relation(fields: [subjectId], references: [id])
+  subjectId   Int
+  author      User    @relation(fields: [authorId], references: [id])
+  authorId    Int
+  Class       Class[]
 }
 
 model Task {
-  id          Int           @id @default(autoincrement())
-  name        String        @db.VarChar(100)
-  description String        @db.VarChar(100)
-  content     String        @db.VarChar(1000)
-  subject     Subject       @relation(fields: [subjectId], references: [id])
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(100)
+  description String  @db.VarChar(100)
+  content     String  @db.VarChar(1000)
+  subject     Subject @relation(fields: [subjectId], references: [id])
   subjectId   Int
-  author      User          @relation(fields: [authorId], references: [id])
+  author      User    @relation(fields: [authorId], references: [id])
   authorId    Int
   Class       Class[]
-  StudentTask StudentTask[]
-}
-
-model StudentTask {
-  id         Int      @id @default(autoincrement())
-  student    User     @relation(fields: [studentId], references: [id])
-  studentId  Int
-  task       Task     @relation(fields: [taskId], references: [id])
-  taskId     Int
-  isRead     Boolean  @default(false)
-  isMarked   Boolean  @default(false)
-  readDate   DateTime
-  markedDate DateTime
 }
